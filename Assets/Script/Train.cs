@@ -7,9 +7,10 @@ public class Train : MonoBehaviour {
     private Vector3 targetPosition; // 目標位置
     public float speed = 5.0f; // 移動速度
     private bool isMoving = false; // 移動中かどうかのフラグ
-
+    private int passenger = 0;
     void Start() {
         targetPosition = transform.position; // 初期位置を目標位置に設定
+        passenger = 0;
     }
 
     void Update() {
@@ -48,5 +49,13 @@ public class Train : MonoBehaviour {
                 isMoving = false; // 移動完了
             }
         }
+    }
+
+    public void AddPassenger() {
+        passenger += 100;
+    }
+
+    public int GetPassenger() {
+        return passenger;
     }
 }

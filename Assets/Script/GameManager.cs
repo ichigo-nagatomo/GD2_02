@@ -41,5 +41,6 @@ public class GameManager : MonoBehaviour
     private void GeneTrain() {
         int rand = Random.Range(0, genePoints.Count);
         EnemyTrain enemy = Instantiate(enemyTrain, genePoints[rand].transform.position, transform.rotation);
+        enemy.SetTrain(train);
     }
 }

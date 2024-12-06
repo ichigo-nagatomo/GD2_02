@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTrain : MonoBehaviour {
+public class ChangeEnemyTrain : MonoBehaviour {
     private bool rightHit;
     private bool leftHit;
     private bool upHit;
@@ -33,14 +33,14 @@ public class EnemyTrain : MonoBehaviour {
             transform.position += transform.forward * 3f * Time.deltaTime;
         }
 
-        if (rightHit || leftHit || downHit) {
+        if (rightHit || leftHit || upHit || downHit) {
             Fling();
             destroyTime -= Time.deltaTime;
         }
 
         if (upHit) { //ã‚©‚ç“–‚½‚Á‚½
             transform.localScale -= new Vector3(0, Time.deltaTime, 0);
-            transform.Translate(0, -0.5f * Time.deltaTime, 0);
+
             destroyTime -= 5f * Time.deltaTime;
         }
 
@@ -78,11 +78,6 @@ public class EnemyTrain : MonoBehaviour {
             } else if (dotUp > 0.7f) { // ã
                 Debug.Log("ã‚©‚çÕ“ËI");
                 upHit = true;
-                //æ‹q‚ğ’Ç‰Á
-                if (train != null) {
-                    train.AddPassenger();
-                }
-
             } else if (dotUp < -0.7f) { // ‰º
                 Debug.Log("‰º‚©‚çÕ“ËI");
                 moveVelo = new Vector3(0, 10, 10);
@@ -108,7 +103,7 @@ public class EnemyTrain : MonoBehaviour {
             if (train != null) {
                 train.AddPassenger();
             }
-            
+
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
@@ -138,4 +133,3 @@ public class EnemyTrain : MonoBehaviour {
         train = trainScript;
     }
 }
-
