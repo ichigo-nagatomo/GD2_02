@@ -7,6 +7,8 @@ public class HUDManager : MonoBehaviour
 {
     [SerializeField] Train train;
     [SerializeField] Text passenger;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] Text score;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,7 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        passenger.text = "" + train.GetPassenger().ToString("D6");
+        passenger.text = "" + train.GetPassenger().ToString("D4");
+        score.text = "" + gameManager.GetScore().ToString("D6");
     }
 }

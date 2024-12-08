@@ -13,6 +13,6 @@ public class Station : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += transform.forward * 1f * Time.deltaTime;
     }
 }

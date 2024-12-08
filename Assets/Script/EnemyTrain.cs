@@ -7,6 +7,7 @@ public class EnemyTrain : MonoBehaviour {
     private bool leftHit;
     private bool upHit;
     private bool downHit;
+    private bool isFri;
 
     private Vector3 moveVelo;
     private Vector3 rote;
@@ -21,6 +22,7 @@ public class EnemyTrain : MonoBehaviour {
         leftHit = false;
         upHit = false;
         downHit = false;
+        isFri = false;
         moveVelo = Vector3.zero;
         rote = Vector3.zero;
         destroyTime = 5f;
@@ -75,6 +77,7 @@ public class EnemyTrain : MonoBehaviour {
 
             if (dotForward > 0.8f) { // 正面
                 Debug.Log("正面から衝突！");
+                train.SubtractSubTrain();
             } else if (dotUp > 0.7f) { // 上
                 Debug.Log("上から衝突！");
                 upHit = true;
@@ -88,16 +91,19 @@ public class EnemyTrain : MonoBehaviour {
                 moveVelo = new Vector3(0, 10, 10);
                 rote = new Vector3(-720, 0, 0);
                 downHit = true;
+                isFri = true;
             } else if (dotRight > 0.7f) { // 右
                 Debug.Log("右から衝突！");
                 moveVelo = new Vector3(10, 0, 10);
                 rote = new Vector3(0, -720, 0);
                 rightHit = true;
+                isFri = true;
             } else if (dotRight < -0.7f) { // 左
                 Debug.Log("左から衝突！");
                 moveVelo = new Vector3(-10, 0, 10);
                 rote = new Vector3(0, 720, 0);
                 leftHit = true;
+                isFri = true;
             } else {
                 Debug.Log("判定外の方向から衝突！");
             }
@@ -105,12 +111,23 @@ public class EnemyTrain : MonoBehaviour {
 
         //敵の電車に当たったら
         if (other.gameObject.tag == "Enemy") {
-            if (train != null) {
-                train.AddPassenger();
+            if (isFri) {
+                if (train != null) {
+                    train.AddPassenger();
+                    train.AddPassenger();
+                }
+
+                Destroy(other.gameObject);
+                Destroy(gameObject);
             }
-            
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+        }
+
+        //駅にぶつかったら
+        if (other.gameObject.tag == "Station") {
+            if (isFri) {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 

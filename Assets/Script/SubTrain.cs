@@ -16,7 +16,7 @@ public class SubTrain : MonoBehaviour {
             Vector3 followPosition = new Vector3(
                 targetPosition.x,
                 targetPosition.y,
-                transform.position.z
+                targetPosition.z - 2.2f
             );
 
             // 現在の位置から追従位置へスムーズに移動
